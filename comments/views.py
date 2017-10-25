@@ -13,7 +13,7 @@ def post_comment(request,post_pk):
 			comment.save()
 			return redirect(post)
 		else:
-			comment_list=post.comment_set.all()
+			comment_list=Comment.objects.filter(post=post)
 			context={
 					'post':post,
 					'form':form,
