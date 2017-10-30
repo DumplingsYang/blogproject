@@ -69,6 +69,9 @@
         <div class="row">
             <main class="col-md-8">
                 {% block main %}
+                {% if error_msg %}
+                    <p>{{error_msg}}</p>
+                {% endif %}
                 {% for post in post_list %}
                 <article class="post post-{{post.pk}}">
                     <header class="entry-header">
@@ -85,7 +88,7 @@
                         </div>
                     </header>
                     <div class="entry-content clearfix">
-                        <p>{{post.body|truncatechars:54}}...</p>
+                        <p>{{post.excerpt}}...</p>
                         <div class="read-more cl-effect-14">
                             <a href="{{post.get_absolute_url}}" class="more-link">阅读 <span class="meta-nav">→</span></a>
                         </div>
