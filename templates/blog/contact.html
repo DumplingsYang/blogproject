@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+                {% block main %}
+                <article class="post post-1">
+                    <header class="entry-header">
+                        
+                        <div class="entry-meta">
+
+                            <span class="post-date"><a href="#"><time class="entry-date"
+                                                                      datetime="2017年10月30日">2017年10月30日</time></a></span>
+                            <span class="post-author"><a href="#">dumplingsyang</a></span>
+                        
+                        </div>
+                    </header>
+                    <div class="entry-content clearfix">
+                        {{body|safe}}
+                    </div>
+                </article>
+                
+                {% endblock main %}
+            </main>
+            <aside class="col-md-4">
+                {% block toc %}
+                <div class="widget widget-content">
+                    <h3 class="widget-title">文章目录</h3>
+                    {{post.toc|safe}}
+                </div>
+                {% endblock toc %}
+                
