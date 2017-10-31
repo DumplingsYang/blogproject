@@ -124,7 +124,7 @@ def search(request):
 
 def contact(request):
 
-	body='###<center>Me</center>\n<br>1998年于福建晋江出产的雄性\n\n2010年进入养正中学\n\n2016进入厦门理工学院软件工程学院\n\n未完待续...至今方向迷茫...<br><br><br><br>\n###<center>The blog</center>\n<br>由Django搭建，用的服务器和域名都来自于阿里云\n\n模仿追梦人物的博客搭建，十分感谢他的[博客教程](zmrenwu.com)让我尽快的能将它上线运行，给了我很大的启发。\n\n目前是非常简陋的版本，简陋到当前这个页面是直接用前端写的（因为我也不清楚如何最简的创建一个网页），我会加紧学习尽快完善它。<br><br><br><br>\n###<center>Contact</center>\n<br><center>[My Github](https://github.com/DumplingsYang)</center>'
+	body='###<center>Me</center>\n<br>1998年于福建晋江出产的雄性\n\n2010年进入养正中学\n\n2016进入厦门理工学院软件工程学院\n\n未完待续...<br><br><br><br>\n###<center>The blog</center>\n<br>由Django搭建，用的服务器和域名都来自于阿里云\n\n模仿追梦人物的博客搭建，十分感谢他的博客[zmrenwu.com](http://zmrenwu.com)让我尽快的能将它上线运行，给了我很大的启发。\n\n目前是非常简陋的版本，简陋到当前这个页面是直接用前端写的（因为我也不清楚如何最简的创建一个单页面），我会加紧学习尽快完善它。<br><br><br><br>\n###<center>Contact</center>\n<br><center>[My Github](https://github.com/DumplingsYang)</center>'
 	md=markdown.Markdown(extensions=[
 		'markdown.extensions.extra',
 		'markdown.extensions.codehilite',
