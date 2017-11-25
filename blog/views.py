@@ -15,7 +15,7 @@ class IndexView(ListView):
 	template_name='blog/index.html'
 	queryset=Post.objects.order_by('-created_time')
 	context_object_name='post_list'
-	paginate_by=10
+	paginate_by=2
 
 	def get_context_data(self,**kwargs):
 		context=super().get_context_data(**kwargs)
@@ -78,10 +78,11 @@ class ArchivesViews(IndexView):
 		year=self.kwargs.get('year')
 		month=self.kwargs.get('month')
 		return super(ArchivesViews,self).get_queryset().filter(created_time__year=year,created_time__month=month)
-class TagView(ListView):
-	model=Post
+class TagView(IndexView):
+	'''model=Post
 	template_name='blog/index.html'
 	context_object_name='post_list'
+	'''
 	def get_queryset(self):
 		tag=get_object_or_404(Tag,pk=self.kwargs.get('pk'))
 		return super(TagView,self).get_queryset().filter(tags=tag)
