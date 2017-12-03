@@ -15,7 +15,7 @@ class IndexView(ListView):
 	template_name='blog/index.html'
 	queryset=Post.objects.order_by('-created_time')
 	context_object_name='post_list'
-	paginate_by=2
+	paginate_by=8
 
 	def get_context_data(self,**kwargs):
 		context=super().get_context_data(**kwargs)
@@ -86,7 +86,7 @@ class TagView(IndexView):
 	def get_queryset(self):
 		tag=get_object_or_404(Tag,pk=self.kwargs.get('pk'))
 		return super(TagView,self).get_queryset().filter(tags=tag)
-class PostDetailView(DetailView):
+'''class PostDetailView(DetailView):
 	model=Post
 	template_name='blog/detail.html'
 	context_object_name='post'
@@ -114,6 +114,7 @@ class PostDetailView(DetailView):
 			'comment_list': comment_list,
 			})
 		return context
+'''
 def search(request):
 	q=request.GET.get('q')
 	error_msg=''
@@ -151,9 +152,9 @@ def category(request,pk):
 	cate=get_object_or_404(Category,pk=pk)
 	post_list=Post.objects.filter(category=cate).order_by('-created_time')
 	return render(request,'blog/index.html',context={'post_list':post_list})
-
-def detail(request,pk):
-	post=get_object_or_404(Post,pk=pk)
+'''
+def detail(request,post_slug):
+	post=get_object_or_404(Post,post_slug=post_slug)
 	post.increase_views()
 	post.body=markdown.markdown(
 		post.body,
@@ -170,5 +171,5 @@ def detail(request,pk):
 			'comment_list':comment_list
 	}
 	return render(request,'blog/detail.html',context=context)
-'''
+
 
