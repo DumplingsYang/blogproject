@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Category,Tag,Post 
+from .models import Category,Tag,Post
 from comments.models import Comment
 from django.contrib.flatpages.admin import FlatPageAdmin , FlatpageForm
 from django.contrib.flatpages.models import FlatPage
 from django.db import models
+from django.db.models import Count
 
 class CommentInline(admin.TabularInline):
 	model = Comment
@@ -16,7 +17,8 @@ class CommentInline(admin.TabularInline):
 在posts inline 中 显示只读created_time
 '''
 class Postadmin(admin.ModelAdmin):
-	list_display=['title','created_time','author','category']
+
+	list_display=['title','created_time','author','category','comment_count']
 	fieldsets=[
 			('Posts',{'fields':['title','body','author']}),
 			('Time',{'fields':['created_time','modified_time']}),
@@ -29,12 +31,22 @@ class Postadmin(admin.ModelAdmin):
     )
 	search_fields = ['title','body']
 	save_as = True
+	
+	def get_queryset(self,request):
+		qs = super(Postadmin,self).get_queryset(request)
+		return qs.annotate(comment_count=Count('comment'))
 
-'''class CustomFlatpage(FlatPage):
+	def comment_count(self,inst):
+		return inst.comment_count
+	comment_count.admin_order_field = 'comment_count'
+'''
+通过在admin中调用get_queryset方法并配合admin_order_field来实现comment_count的显示
+'''
+class CustomFlatpage(FlatPage):
 	class Meta:
-		verbose_name_plural = ('About page')
-尝试修改flatpage在admin上的名字，但更改之后它好像会在数据库重新创建一个表单，
-目前无法解决这个问题，同样尝试修改默认field，也没有 2017.11.26
+		verbose_name = 'About page'
+'''
+通过复写flatpage，更改flatpage名字为 About page
 '''
 class CustomFlatPageAdmin(FlatPageAdmin):
     fieldsets = (
@@ -48,4 +60,4 @@ admin.site.register(Post,Postadmin)
 admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.unregister(FlatPage)
-admin.site.register(FlatPage,CustomFlatPageAdmin)	
+admin.site.register(CustomFlatpage,CustomFlatPageAdmin)	
