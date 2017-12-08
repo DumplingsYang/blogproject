@@ -42,12 +42,6 @@ class Postadmin(admin.ModelAdmin):
 '''
 通过在admin中调用get_queryset方法并配合admin_order_field来实现comment_count的显示
 '''
-class CustomFlatpage(FlatPage):
-	class Meta:
-		verbose_name = 'About page'
-'''
-通过复写flatpage，更改flatpage名字为 About page
-'''
 class CustomFlatPageAdmin(FlatPageAdmin):
     fieldsets = (
         (None, {'fields': ('url', 'title', 'content',)}),
@@ -60,4 +54,4 @@ admin.site.register(Post,Postadmin)
 admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.unregister(FlatPage)
-admin.site.register(CustomFlatpage,CustomFlatPageAdmin)	
+admin.site.register(FlatPage,CustomFlatPageAdmin)	
