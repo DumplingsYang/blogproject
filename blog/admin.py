@@ -44,7 +44,7 @@ class Postadmin(admin.ModelAdmin):
 '''
 class CustomFlatPageAdmin(FlatPageAdmin):
     fieldsets = (
-        (None, {'fields': ('url', 'title', 'content',)}),
+        (None, {'fields': ('url', 'title', 'content','sites')}),
         (('Advanced options'), {
             'classes': ('collapse',),
             'fields': ('registration_required', 'template_name'),
