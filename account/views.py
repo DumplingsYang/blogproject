@@ -9,11 +9,12 @@ from django.contrib.auth import logout
 def register(request):
 	#set False defaultly to judge whether the register is successful
 	registered = 'False'
-
 	if request.method == 'POST':
 		user_form = UserForm(request.POST)
 		profile_form = UserProfileForm(request.POST)
-		
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+
 		if user_form.is_valid() and profile_form.is_valid():
 			#save User
 			user = user_form.save()
@@ -29,12 +30,15 @@ def register(request):
 			if 'picture' in request.FILES:
 				profile.picture = request.FILES['picture']
 			profile.save()
+			
 			registered = 'True'
+			user = authenticate(username=username,password=password)
+			login(request,user)
 			context = {
-					'registered': registered
-		} 
-		# if successsful return the page said Thank you for your registered
-			return render(request , 'account/register.html' , context = context)
+			'user' : user
+			}
+			return render(request, 'blog/index.html' , context=context)
+			
 		else:
 			#invalid forms
 			context = {
@@ -96,6 +100,8 @@ def log_in(request):
 def log_out(request):
 	logout(request)
 	return render(request , 'blog/index.html' )
+
+
 
 
 
