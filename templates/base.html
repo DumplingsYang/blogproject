@@ -42,9 +42,23 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="博客">博客</a></li>
                             
+                        {% if user.is_authenticated %}
+                            <li class="cl-effect-11">howdy,{{user.username}}</li>
+                            <li class="cl-effect-11"><a href="{% url 'account:logout' %}" data-hover="博客">Log out</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="博客">首页</a></li>
+                            
+                            <!-- <li class="cl-effect-11"><a href="{% url 'account:register' %}" data-hover="博客">Sign up</a></li> -->
+
                             <li class="cl-effect-11"><a href="{% url 'about' %}" data-hover="关于">关于</a></li>
+                        {% else %}
+                            <li class="cl-effect-11">hey there partner!</li>
+                            <li class="cl-effect-11"><a href="{% url 'account:login' %}" data-hover="博客">Log in</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="博客">首页</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'account:register' %}" data-hover="博客">Sign up</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'about' %}" data-hover="关于">关于</a></li>
+                        {% endif %}
+                            
                             
                         </ul>
                     </div><!-- /.navbar-collapse -->

@@ -123,10 +123,10 @@ def search(request):
 		return render(request,'blog/index.html',{'error_msg':error_msg})
 	post_list=Post.objects.filter(Q(title__icontains=q)|Q(body__icontains=q))
 	return render(request,'blog/index.html',{'error_msg':error_msg,'post_list':post_list})
-
+'''
 def contact(request):
 
-	body='###<center>Me</center>\n<br>1998年于福建晋江出产的雄性\n\n2010年进入养正中学\n\n2016进入厦门理工学院软件工程学院\n\n未完待续...<br><br><br><br>\n###<center>The blog</center>\n<br>由Django搭建，用的服务器和域名都来自于阿里云\n\n模仿追梦人物的博客搭建，十分感谢他的博客[zmrenwu.com](http://zmrenwu.com)让我尽快的能将它上线运行，给了我很大的启发。\n\n目前是非常简陋的版本，简陋到当前这个页面是直接用前端写的（因为我也不清楚如何最简的创建一个单页面），我会加紧学习尽快完善它。<br><br><br><br>\n###<center>Contact</center>\n<br><center>[My Github](https://github.com/DumplingsYang)</center>'
+	body=
 	md=markdown.Markdown(extensions=[
 		'markdown.extensions.extra',
 		'markdown.extensions.codehilite',
@@ -134,7 +134,7 @@ def contact(request):
 		])
 	body=md.convert(body)
 	return render(request,'blog/contact.html',{'body':body})
-'''def about(request):
+def about(request):
 	return HttpResponse("about test")
 	
 
@@ -156,13 +156,14 @@ def category(request,pk):
 def detail(request,post_slug):
 	post=get_object_or_404(Post,post_slug=post_slug)
 	post.increase_views()
-	post.body=markdown.markdown(
-		post.body,
+	md=markdown.Markdown(
 		extensions=[
 			'markdown.extensions.extra',
 			'markdown.extensions.codehilite',
 			'markdown.extensions.toc',
 		])
+	post.body = md.convert(post.body)
+	post.toc = md.toc
 	form=CommentForm()
 	comment_list=post.comment_set.all()
 	context={

@@ -1,0 +1,29 @@
+{% block title_block %}
+    Login
+{% endblock %}
+{% block body_block %} 
+	<h1>Login Page</h1> 
+	
+	{% if nowstatus == 'disabled' %}
+	<strong>Your account is disabled.</strong>
+	<a href="{% url 'account:login' %}">re-login.</a>
+	
+	{% elif nowstatus == 'error password'%}
+	<strong>Incorrect account or password.</strong>
+	<a href="{% url 'account:login' %}">re-login.</a>
+	
+	<br />
+	
+	{% else %}
+	<strong>Login here!</strong><br />
+	<form id="login_form" method="post" action="{% url 'account:login' %}">
+        {% csrf_token %}
+        <!-- Display each form  -->
+        {{ login_form.as_p }}
+      
+        <!-- Provide a button to click to submit the form. -->
+	<input type="submit" name="submit" value="Login" /> 
+	</form>
+    {% endif %}
+
+{% endblock %}

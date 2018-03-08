@@ -5,6 +5,8 @@ from django.contrib.flatpages.admin import FlatPageAdmin , FlatpageForm
 from django.contrib.flatpages.models import FlatPage
 from django.db import models
 from django.db.models import Count
+from account.models import UserProfile
+from django.contrib.auth.models import User
 
 class CommentInline(admin.TabularInline):
 	model = Comment
@@ -50,8 +52,11 @@ class CustomFlatPageAdmin(FlatPageAdmin):
             'fields': ('registration_required', 'template_name'),
         }),
 )
+
+
 admin.site.register(Post,Postadmin)
 admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.unregister(FlatPage)
-admin.site.register(FlatPage,CustomFlatPageAdmin)	
+admin.site.register(FlatPage,CustomFlatPageAdmin)
+admin.site.register(UserProfile)
