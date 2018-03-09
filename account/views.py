@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .forms import UserForm , UserProfileForm , LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-
+from blog.models import Post
 # Create your views here.
 
 
@@ -34,9 +34,12 @@ def register(request):
 			registered = 'True'
 			user = authenticate(username=username,password=password)
 			login(request,user)
+			post_list=Post.objects.all().order_by('-created_time')
 			context = {
-			'user' : user
+			'user' : user,
+			'post_list': post_list,
 			}
+
 			return render(request, 'blog/index.html' , context=context)
 			
 		else:
@@ -67,13 +70,14 @@ def log_in(request):
 
 	# use django's authenticate function to confirm the account
 		user = authenticate(username=username,password=password)
-
+		post_list=Post.objects.all().order_by('-created_time')
 	#if confirm , return a User object , if not , return None
 		if user:
 			if user is not None:
 				login(request,user)
 				context = {
-				'user' : user
+				'user' : user,
+				'post_list': post_list,
 				}
 				return render(request, 'blog/index.html' , context=context)
 			else:
@@ -99,7 +103,11 @@ def log_in(request):
 
 def log_out(request):
 	logout(request)
-	return render(request , 'blog/index.html' )
+	post_list=Post.objects.all().order_by('-created_time')
+	context = {
+			'post_list': post_list,
+			}
+	return render(request , 'blog/index.html' ,context=context)
 
 
 
