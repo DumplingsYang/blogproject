@@ -24,7 +24,7 @@ MEDIA_ROOT = os.path.join( BASE_DIR , 'media/').replace('\\','/')
 SECRET_KEY = '@a3q276-b6k3@e!z&7y+&_$uo86f&h3sthczh0nh_6ts=f!5%^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost','dumplings.site','39.108.165.105']
 
@@ -83,13 +83,22 @@ WSGI_APPLICATION = 'blogproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
+DATABASES = { 
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'myblog',  
+        'USER': 'root',
+        'PASSWORD': '123456',    
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }   
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

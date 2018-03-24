@@ -28,7 +28,7 @@ class Post(models.Model):
 	author=models.ForeignKey(User)
 	views=models.PositiveIntegerField(default=0)
 	excerpt=models.CharField(max_length=100,blank=True)
-	post_slug=models.SlugField(max_length=15,unique=True,blank=True)
+	post_slug=models.SlugField(max_length=40,unique=True,blank=True)
 	def __str__(self):
 		return self.title
 
